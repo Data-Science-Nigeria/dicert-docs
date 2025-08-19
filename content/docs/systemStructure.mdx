@@ -1,0 +1,35 @@
+---
+title: "System Structure"
+---
+
+# System Structure
+
+## Data Flow Overview
+
+### 1. Board Exams
+- Examiners upload student results for board exams (upper basic or middle basic).
+- Inspectors review and approve, reject, or delete the results.
+- Once approved, students can access their results.
+
+### 2. School Exams
+- Teachers upload student exam results.
+- School admins approve, reject, or delete the results.
+- Once approved, students can view their results.
+- State admins and LGA admins manage school data at the state and LGA levels, respectively.
+
+---
+
+## Data Hierarchy
+
+### State
+- Managed by state admin.
+- Contains multiple LGA admins.
+- Contains multiple schools.
+
+### LGA
+- Managed by LGA admin.
+- Contains multiple schools.
+
+### School
+- Managed by school admin.
+- Contains multiple teachers who upload results for their students.

@@ -1,0 +1,409 @@
+---
+title: "Workflows and Pipelines"
+url: "https://educert.ng"
+---
+import Image from 'next/image'
+
+## Workflows and Pipelines
+
+Using a **GitHub Actions** workflow file, we created separate pipelines for the backend and frontend of each environment (**Dev**, **QA**, and **Prod**).  
+There are three pipelines configured in the GitHub Actions workflow for each service.  
+
+### QA and DEV
+1. Triggered when any new tag is pushed to a repository (repo).  
+2. Clone the repo.  
+3. Copy the `.env` variables from GitHub Actions secrets into a `configmap.yaml` file.  
+4. Build a Docker image.  
+
+### PROD
+1. The pipeline is triggered on every push to the repo.  
+2. Connect to the production server via Secure Shell and create an `.env` file from GitHub Actions secrets.  
+3. Navigate to the specific directory and run the `deploy.sh` file, which includes all the deployment steps.  
+
+---
+<Image
+  src="/images/Workflow.png"
+  alt="EduCert Verifier Dashboard"
+  width={900}
+  height={500}
+/>
+
+## Data Dictionary – Schemas
+
+### Notification
+| Field Name | Type   | Required | Enum Values | Description |
+|------------|--------|----------|-------------|-------------|
+| user_id    | string | yes      |             | User ID of person |
+| subject    | string | yes      |             | Notification title |
+| is_read    | boolean| yes      |             | Boolean to check notification read/unread status |
+| createdAt  | string | yes      |             | Created time |
+| updatedAt  | string | yes      |             | Updated time |
+| description| string | yes      |             | Description/body of notification |
+| type       | string | yes      |             | Type of notification |
+
+---
+
+### Report (Added fields)
+| Field Name         | Type   | Required | Enum Values | Description |
+|--------------------|--------|----------|-------------|-------------|
+| ceritificateOsid   | string | no       |             | Osid of result, regular/regional |
+
+---
+
+### Student
+| Field Name   | Type   | Required | Enum Values | Description |
+|--------------|--------|----------|-------------|-------------|
+| admissionNo  | string | no       |             | Admission number of student |
+
+---
+
+### ActivityLog
+| Field Name  | Type   | Required | Enum Values | Description |
+|-------------|--------|----------|-------------|-------------|
+| user_id     | string | no       |             | User ID of the person performing the action |
+| user_name   | string | no       |             | First name of the user |
+| last_name   | string | no       |             | Last name of the user |
+| action      | string | no       |             | Action performed by the user |
+| entity_name | string | no       | Super Admin, School, Inspector, Examiner, Student, Result, Report, StateAdmin, LgaAdmin, SchoolAdmin, LGAADMIN, Certificate | Name of the entity associated with the action |
+| entity_id   | string | no       |             | ID of the entity associated with the action |
+| details     | object | no       |             | Additional details about the action |
+
+## Class
+
+| Field             | Type   | Required | Example Values                                                                                                                                                                                                                                                                                 | Description           |
+| ----------------- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| schoolId          | string | no       |                                                                                                                                                                                                                                                                                                 | School ID             |
+| schoolName        | string | no       |                                                                                                                                                                                                                                                                                                 | School name           |
+| classId           | string | no       |                                                                                                                                                                                                                                                                                                 | Class ID              |
+| classType         | string | no       |                                                                                                                                                                                                                                                                                                 | Class type            |
+| className         | string | yes      |                                                                                                                                                                                                                                                                                                 | Class name            |
+| subClass          | string | no       | A, B, C, D, E                                                                                                                                                                                                                                                                                   | Subclass name         |
+| classSize         | string | no       |                                                                                                                                                                                                                                                                                                 | Class size            |
+| teachersAssigned  | string | no       |                                                                                                                                                                                                                                                                                                 | Teacher’s assigned    |
+| teachersEmail     | string | no       |                                                                                                                                                                                                                                                                                                 | Teacher's email       |
+| academicYear      | string | no       |                                                                                                                                                                                                                                                                                                 | Academic year         |
+| subjects          | string | no       | English, Mathematics, Civic, Economics, Marketing, Commerce, Accounting, Animal Husbandry, Agricultural Science, Fine Arts, CRS, IRS, Arabic, French, Edo Language, Biology, Chemistry, Food and Nutrition, Government, History                                                               | Subjects offered      |
+
+## ClassResults
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| uniqueId | string | yes | Unique identifier for the record |
+| certificateId | string | no | Certificate ID associated with the result |
+| studentId | string | yes | Student ID |
+| admissionNo | string | no | Admission number |
+| classType | string | no | Type of class |
+| classId | string | no | Class ID |
+| className | string | no | Class name |
+| subClass | string | no | Subclass name |
+| firstName | string | yes | First name of student |
+| middleName | string | no | Middle name of student |
+| lastName | string | yes | Last name of student |
+| schoolId | string | no | School ID |
+| schoolName | string | no | School name |
+| academicYear | string | no | Academic year |
+| teacherId | string | no | Teacher ID |
+| teacherName | string | no | Teacher name |
+| status | string | no | Result status |
+| term | string | no | Academic term |
+| highestAverage | string | no | Highest average in class |
+| lowestAverage | string | no | Lowest average in class |
+| finalAverage | string | no | Final average of the student |
+| noInClass | string | no | Number of students in class |
+| noOfDaysSchoolOpened | string | no | Total days school opened |
+| noOfDaysPresent | string | no | Days present |
+| noOfDaysAbsent | string | no | Days absent |
+| psychomotorProblemSolving | string | no | Psychomotor skill - Problem solving |
+| psychomotorCriticalThinking | string | no | Psychomotor skill - Critical thinking |
+| psychomotorCreativity | string | no | Psychomotor skill - Creativity |
+| psychomotorAdability | string | no | Psychomotor skill - Adaptability |
+| psychomotorCommunication | string | no | Psychomotor skill - Communication |
+| psychomotorCollaboration | string | no | Psychomotor skill - Collaboration |
+| behaviouralReportEmotionalIntelligence | string | no | Behavioural report - Emotional intelligence |
+| behaviouralReportSharedValues | string | no | Behavioural report - Shared values |
+| behaviouralReportInterpersonalSkills | string | no | Behavioural report - Interpersonal skills |
+| behaviouralReportAttentionSpan | string | no | Behavioural report - Attention span |
+| ClassTeacherName | string | no | Class teacher's name |
+| ClassTeacherComment | string | no | Class teacher's comment |
+| executivePrincipalsComment | string | no | Executive principal's comment |
+
+---
+## ClassStudents
+
+| Field           | Type   | Required | Allowed Values | Description        |
+|-----------------|--------|----------|----------------|--------------------|
+| studentId       | string | no       |                |                    |
+| classId         | string | no       |                |                    |
+| className       | string | yes      |                |                    |
+| schoolId        | string | no       |                |                    |
+| schoolName      | string | no       |                |                    |
+| firstName       | string | no       |                |                    |
+| middleName      | string | no       |                |                    |
+| lastName        | string | no       |                |                    |
+| phoneNumber     | string | no       |                |                    |
+| maths           | string | no       |                |                    |
+| english         | string | no       |                |                    |
+| intsc           | string | no       |                |                    |
+| biology         | string | no       |                |                    |
+| academicYear    | string | no       |                |                    |
+| certificateNo   | string | no       |                |                    |
+| status          | string | no       |                |                    |
+| schoolAdminId   | string | no       |                |                    |
+| schoolAdminName | string | no       |                |                    |
+
+## ClassTeacher
+
+| Field          | Type   | Required | Allowed Values                  | Description |
+|----------------|--------|----------|----------------------------------|-------------|
+| teacherId      | string | no       |                                  |             |
+| classId        | string | no       |                                  |             |
+| className      | string | yes      |                                  |             |
+| subClass       | string | no       |                                  |             |
+| schoolId       | string | no       |                                  |             |
+| schoolName     | string | no       |                                  |             |
+| classTeacherId | string | no       |                                  |             |
+| name           | string | no       |                                  |             |
+| email          | string | no       |                                  |             |
+| academicYear   | string | no       |                                  |             |
+| status         | string | no       | ACTIVE, DEACTIVE, PENDING        |             |
+
+## Examiner
+
+| Field       | Type   | Required | Allowed Values           | Description |
+|-------------|--------|----------|--------------------------|-------------|
+| name        | string | yes      |                          |             |
+| email       | string | yes      |                          |             |
+| phoneNumber | string | yes      |                          |             |
+| status      | string | no       | ACTIVE, DEACTIVE, PENDING|             |
+| password    | string | yes      |                          |             |
+| state       | string | no       |                          |             |
+
+## Inspector
+
+| Field       | Type   | Required | Allowed Values           | Description |
+|-------------|--------|----------|--------------------------|-------------|
+| name        | string | yes      |                          |             |
+| email       | string | yes      |                          |             |
+| phoneNumber | string | yes      |                          |             |
+| status      | string | no       | ACTIVE, DEACTIVE, PENDING|             |
+| password    | string | yes      |                          |             |
+| state       | string | no       |                          |             |
+
+## LgaAdmin
+
+| Field       | Type   | Required | Allowed Values | Description |
+|-------------|--------|----------|----------------|-------------|
+| name        | string | yes      |                |             |
+| email       | string | yes      |                |             |
+| phoneNumber | string | yes      |                |             |
+| status      | string | no       |                |             |
+| password    | string | yes      |                |             |
+| lgaName     | string | no       |                |             |
+| state       | string | no       |                |             |
+| lgaId       | string | no       |                |             |
+| stateId     | string | no       |                |             |
+
+
+## LGAs
+
+| Field     | Type   | Required | Allowed Values | Description |
+|-----------|--------|----------|----------------|-------------|
+| lgaId     | string | no       |                |             |
+| lgaName   | string | yes      |                |             |
+| stateId   | string | no       |                |             |
+| stateName | string | no       |                |             |
+
+## LgaStateAdmin
+
+| Field       | Type   | Required | Allowed Values               | Description |
+|-------------|--------|----------|------------------------------|-------------|
+| name        | string | yes      |                              |             |
+| email       | string | yes      |                              |             |
+| phoneNumber | string | yes      |                              |             |
+| status      | string | no       | ACTIVE, DEACTIVE, PENDING    |             |
+| type        | string | no       |                              |             |
+| subType     | string | no       |                              |             |
+| password    | string | yes      |                              |             |
+| lgaName     | string | no       |                              |             |
+| state       | string | no       |                              |             |
+
+## Report
+
+| Field                          | Type    | Required | Allowed Values | Description |
+|--------------------------------|---------|----------|----------------|-------------|
+| studentJssId                   | string  | no       |                |             |
+| studentSssId                   | string  | no       |                |             |
+| StudentOsid                    | string  | no       |                |             |
+| description                    | string  | yes      |                |             |
+| file                           | string  | no       |                |             |
+| imageUrl                       | string  | no       |                |             |
+| status                         | string  | no       |                |             |
+| studentId                      | string  | no       |                |             |
+| studentName                    | string  | no       |                |             |
+| examinerId                     | string  | no       |                |             |
+| examinerName                   | string  | no       |                |             |
+| inspectorId                    | string  | no       |                |             |
+| teacherId                      | string  | no       |                |             |
+| schoolId                       | string  | no       |                |             |
+| schoolName                     | string  | no       |                |             |
+| superAdminId                   | string  | no       |                |             |
+| examinerNotificationStatus     | boolean | no       |                |             |
+| inspectorNotificationStatus    | boolean | no       |                |             |
+| teacherNotificationStatus      | boolean | no       |                |             |
+| schoolNotificationStatus       | boolean | no       |                |             |
+| superAdminNotificationStatus   | boolean | no       |                |             |
+| certificateType                | string  | no       |                |             |
+
+## Results
+
+| Field         | Type    | Required | Allowed Values | Description |
+|---------------|---------|----------|----------------|-------------|
+| uniqueId      | string  | yes      |                |             |
+| studentId     | string  | yes      |                |             |
+| examinerId    | string  | no       |                |             |
+| schoolType    | string  | no       |                |             |
+| class         | string  | no       |                |             |
+| examNum       | string  | no       |                |             |
+| firstName     | string  | yes      |                |             |
+| middleName    | string  | no       |                |             |
+| lastName      | string  | yes      |                |             |
+| schoolId      | string  | yes      |                |             |
+| schoolName    | string  | no       |                |             |
+| examDate      | string  | no       |                |             |
+| subjectAndGrade | string | no      |                |             |
+| academicYear  | string  | no       |                |             |
+| duration      | string  | no       |                |             |
+| degree        | string  | no       |                |             |
+| status        | string  | no       |                |             |
+| examinerName  | string  | no       |                |             |
+| grade         | string  | no       |                |             |
+| term          | string  | no       |                |             |
+| certificateId | string  | no       |                |             |
+| certificateNo | string  | no       |                |             |
+| candidateNo   | string  | no       |                |             |
+| verified      | boolean | no       |                |             |
+
+## StateAdmin
+
+| Field       | Type    | Required | Allowed Values | Description |
+|-------------|---------|----------|----------------|-------------|
+| name        | string  | yes      |                |             |
+| email       | string  | yes      |                |             |
+| phoneNumber | string  | no       |                |             |
+| status      | string  | no       |                |             |
+| password    | string  | yes      |                |             |
+| state       | string  | no       |                |             |
+| stateId     | string  | no       |                |             |
+
+
+## States
+
+| Field     | Type   | Required | Allowed Values | Description |
+|-----------|--------|----------|----------------|-------------|
+| stateId   | string | no       |                |             |
+| stateName | string | yes      |                |             |
+
+## Student
+
+| Field               | Type   | Required | Allowed Values | Description |
+|---------------------|--------|----------|----------------|-------------|
+| studentId           | string | no       |                |             |
+| studentJssId        | string | no       |                |             |
+| studentSssId        | string | no       |                |             |
+| firstName           | string | yes      |                |             |
+| middleName          | string | no       |                |             |
+| lastName            | string | yes      |                |             |
+| phoneNumber         | string | yes      |                |             |
+| email               | string | yes      |                |             |
+| nin                 | string | no       |                |             |
+| school              | string | yes      |                |             |
+| class               | string | no       |                |             |
+| parentEmail         | string | no       |                |             |
+| guardianEmail       | string | no       |                |             |
+| studentPrimaryId    | string | no       |                |             |
+| studentSecondaryId  | string | no       |                |             |
+| password            | string | yes      |                |             |
+
+## Super Admin
+
+| Field       | Type   | Required | Allowed Values | Description |
+|-------------|--------|----------|----------------|-------------|
+| name        | string | yes      |                |             |
+| email       | string | yes      |                |             |
+| phoneNumber | string | no       |                |             |
+| password    | string | yes      |                |             |
+
+
+## Teacher
+
+| Field           | Type   | Required | Allowed Values                  | Description |
+|-----------------|--------|----------|----------------------------------|-------------|
+| schoolId        | string | no       |                                  |             |
+| schoolName      | string | no       |                                  |             |
+| classId         | string | no       |                                  |             |
+| className       | string | no       |                                  |             |
+| subClass        | string | no       |                                  |             |
+| teacherId       | string | no       |                                  |             |
+| name            | string | yes      |                                  |             |
+| email           | string | yes      |                                  |             |
+| phoneNumber     | string | yes      |                                  |             |
+| teacherSchoolId | string | no       |                                  |             |
+| profileImage    | string | no       |                                  |             |
+| password        | string | no       |                                  |             |
+| status          | string | no       | ACTIVE, DEACTIVE, PENDING        |             |
+
+## VerificationHistory
+
+| Field               | Type   | Required | Allowed Values | Description |
+|---------------------|--------|----------|----------------|-------------|
+| resultId            | string | yes      |                |             |
+| studentId           | string | no       |                |             |
+| firstName           | string | no       |                |             |
+| middleName          | string | no       |                |             |
+| lastName            | string | no       |                |             |
+| schoolId            | string | no       |                |             |
+| schoolName          | string | no       |                |             |
+| status              | string | no       |                |             |
+| candidateNo         | string | no       |                |             |
+| verificationReason  | string | no       |                |             |
+| certificateNo       | string | no       |                |             |
+| class               | string | no       |                |             |
+| examNum             | string | no       |                |             |
+| academicYear        | string | no       |                |             |
+| examinerId          | string | no       |                |             |
+| verifierId          | string | no       |                |             |
+| verifierName        | string | no       |                |             |
+
+## Verifier
+
+| Field       | Type   | Required | Allowed Values               | Description |
+|-------------|--------|----------|------------------------------|-------------|
+| name        | string | yes      |                              |             |
+| email       | string | yes      |                              |             |
+| phoneNumber | string | yes      |                              |             |
+| status      | string | no       | ACTIVE, DEACTIVE, PENDING    |             |
+| password    | string | yes      |                              |             |
+
+## VerifierNotification
+
+| Field                           | Type    | Required | Allowed Values | Description |
+|---------------------------------|---------|----------|----------------|-------------|
+| resultId                        | string  | no       |                |             |
+| studentJssId                    | string  | no       |                |             |
+| studentSssId                    | string  | no       |                |             |
+| studentId                       | string  | no       |                |             |
+| studentName                     | string  | no       |                |             |
+| examinerId                      | string  | no       |                |             |
+| examinerName                    | string  | no       |                |             |
+| schoolId                        | string  | no       |                |             |
+| schoolName                      | string  | no       |                |             |
+| verifierName                    | string  | no       |                |             |
+| verifierId                      | string  | no       |                |             |
+| type                            | string  | no       |                |             |
+| description                     | string  | yes      |                |             |
+| examinerNotificationStatus      | boolean | no       |                |             |
+| inspectorNotificationStatus     | boolean | no       |                |             |
+| teacherNotificationStatus       | boolean | no       |                |             |
+| schoolNotificationStatus        | boolean | no       |                |             |
+| superAdminNotificationStatus    | boolean | no       |                |             |
+| studentNotificationStatus       | boolean | no       |                |             |

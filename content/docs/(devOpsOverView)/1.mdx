@@ -1,0 +1,80 @@
+---
+title: "Tools and Technologies"
+url: "https://educert.ng"
+---
+
+## Tools and Technologies
+
+### NPM
+**npm** is a widely used tool for building code that works with the `package.json` file.  
+We use it to install the required dependencies for the project.
+
+---
+
+### Docker
+In our project, we are using a container deployment and **Amazon Elastic Kubernetes Service (EKS)** deployment for the backend service, microservices, and frontend of the site.
+
+- After cloning the repo, we build a new image on every **push** event to the repository.
+- **Docker Compose** is used for deploying the code on the server.
+- Each newly built image is stored on the **AWS Elastic Container Registry (ECR)**.
+
+---
+
+### Docker Compose
+For deploying the code on the server, we have a separate `docker-compose.yml` file.
+
+- This file is triggered with GitHub Actions workflow and uses the latest built image from a push event.
+- Different ports are allocated for the frontend and backend containers.
+- Each container has its own Docker Compose file.
+
+---
+
+### PostgreSQL
+We use a containerised setup and **AWS RDS** with a PostgreSQL database for backend data storage.
+
+- Daily backups are implemented in AWS RDS.
+- A Docker volume is added for backups and data retrieval.
+- Separate PostgreSQL databases exist for each environment:
+
+  - **Quality Assurance (QA)**: Containerised.
+  - **Development (Dev)**: Containerised.
+  - **Production (Prod)**: Private instance.
+
+---
+
+### AWS
+We have adopted **AWS Cloud** for:
+
+- Configuring virtual machines (VMs)
+- Storing database data
+- Monitoring servers
+- Checking logs for containers
+- Providing user access to AWS resources
+
+Resources used in the project include:
+
+- **EC2**
+- **AWS S3**
+- **IAM**
+- **CloudWatch**
+
+---
+
+### EC2
+We use **Amazon EC2** to launch servers in different environments such as development, staging, and production.
+
+- Various VM types are selected with different configurations.
+- Each VM has a separate **security group** for server access.
+
+---
+
+### AWS S3
+We use **AWS S3** for storing certificates (Verifiable Credentials) in an S3 bucket.
+
+---
+
+### IAM
+To provide users with **limited access** to specific resources:
+
+- IAM roles are created with **read-only permissions** for CloudWatch Logs streams.
+- Custom policies are defined to grant access to specific resources with specific permissions.

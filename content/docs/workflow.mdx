@@ -1,0 +1,103 @@
+---
+title: "System Workflows"
+---
+
+# Overview
+
+The platform is designed to manage and track results for both board exams and school exams in Nigeria. The system is structured around different types of exams, personas, and roles. It also includes functionalities for uploading, approving, and accessing student results based on specific roles, including examiners, inspectors, school administrators (admins), teachers, and students.
+
+## Key Concepts
+
+- **Board Exams**: Regional exams in Nigeria that include both upper basic and middle basic categories.
+- **School Exams**: School-level exams that are available for various educational institutions across the country.
+
+---
+
+## Board Exams
+
+### Exam Types
+
+- **Upper Basic**: Exams for students at the upper level of basic education.
+- **Middle Basic**: Exams for students at the middle level of basic education.
+
+### Personas for Board Exams
+
+#### 1. Examiner
+**Role:** The examiner is responsible for uploading students’ exam results onto the platform.  
+**Permissions:**  
+- Upload results for students in their region.  
+- Provide detailed scores and other relevant exam information.
+
+#### 2. Inspector
+**Role:** The inspector reviews the results that the examiner uploads and either approves, rejects, or deletes them.  
+**Permissions:**  
+- Approve or reject results uploaded by the examiner.  
+- Delete invalid or incorrect results.  
+- Ensure accuracy and correctness of the results before they are made available to students.
+
+#### 3. Students
+**Role:** Students are the primary users of the platform. They can access their exam results once the inspector approves them.  
+**Permissions:**  
+- View their results after approval from the inspector.  
+- No access to edit or modify results.
+
+---
+
+## School Exams
+
+### School Types
+
+- **Early Childhood Care and Development Education (ECCDE)**
+- **Technical College**: Vocational education institutions for students focused on practical skills.
+- **Secondary School**: General education for students in the senior years of basic education.
+- **Basic School**: Primary and junior secondary education.
+- **Institutions**: Higher education institutions, such as colleges or universities.
+
+### Personas for School Exams
+
+#### 1. Teacher
+**Role:** The teacher uploads the results for students within their class or subject.  
+**Permissions:**  
+- Upload results for students.  
+- Provide detailed subject-specific performance data.
+
+#### 2. School Admin
+**Role:** The school admin is responsible for reviewing and then approving, rejecting, or deleting the results that teachers upload.  
+**Permissions:**  
+- Approve or reject the results that teachers submit.  
+- Delete invalid or incorrect results.  
+- Ensure that all results meet the school’s standards.
+
+#### 3. Students
+**Role:** Students can access their results once the school admin has approved them.  
+**Permissions:**  
+- View their exam results once approved by the school admin.
+
+#### 4. State Admin
+**Role:** The state admin manages data for a specific state.  
+**Permissions:**  
+- View and manage school exam data across the state.  
+- Ensure that all school results are correctly recorded and approved.
+
+#### 5. Local Government Area (LGA) Admin
+**Role:** The LGA admin manages data for a specific LGA.  
+**Permissions:**  
+- View and manage school exam data for schools within their LGA.  
+- Work closely with state admins to ensure results are accurately recorded.
+
+---
+
+## Other Personas
+
+### 1. Verifier
+**Role:** Verifiers use the platform to validate and verify generated certificates for students.  
+**Permissions:**  
+- Access certificates and verify the information’s authenticity.  
+- Ensure that all issued certificates meet required standards and regulations.
+
+### 2. Super Admin
+**Role:** The super admin is the highest-level user, who is responsible for managing and overseeing the entire platform.  
+**Permissions:**  
+- Full control over all aspects of the platform.  
+- Manage user accounts and permissions for all roles.  
+- Oversee the system’s functionality and ensure proper operation.

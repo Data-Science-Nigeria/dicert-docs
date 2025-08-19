@@ -1,0 +1,13 @@
+{
+  "title": "Docs",
+  "pages": [
+    "index",
+    "workflow",
+    "deploymentArchitecture",
+    "(devOpsOverView)",
+    "test",
+    "dev",
+    "systemStructure",
+    "(userGuide)"
+  ]
+}

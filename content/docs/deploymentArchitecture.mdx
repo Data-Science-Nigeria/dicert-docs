@@ -1,0 +1,51 @@
+---
+title: "Deployment Architecture"
+---
+
+# Hosting Infrastructure
+
+## Platform
+**Amazon Web Services (AWS)** with Dockerised deployment for all environments: Development, Staging, and Production.
+
+---
+
+## Environments
+
+- **Development**: Separate infrastructure with a PostgreSQL database instance.
+- **Staging**: Separate infrastructure with a PostgreSQL database instance.
+- **Production**: Separate infrastructure with a PostgreSQL instance and secured **Virtual Private Cloud (VPC)**.
+
+---
+
+## System Components
+
+- **Frontend**: Web app accessed via browsers.
+- **Backend**: APIs for handling business logic.
+- **Database**: PostgreSQL instances for development and staging; **Amazon RDS** for production.
+- **Sunbird Registry**: Managed as a microservice for registry needs.
+
+---
+
+## Security Measures
+
+- **HTTPS** for secure communication.
+- **VPC** for restricting production access.
+- **Keycloak** for authentication.
+- **Encryption** and **role-based access controls** to protect data.
+- **Public Key Infrastructure (PKI)** to cryptographically sign issued Verifiable Credentials (VCs).
+- **Audit trail** to track who accessed or updated records, enhancing accountability and reducing fraud.
+
+---
+
+## Storage Solution
+
+- **Amazon S3** for file storage.
+
+---
+
+## Deployment Process
+
+**Continuous Integration / Continuous Deployment (CI/CD)** with **GitHub Actions**:
+
+- **Tag-based deployment** for development.
+- **Commit-based deployment** for staging and production.
