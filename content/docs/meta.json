@@ -4,10 +4,10 @@
     "index",
     "workflow",
     "deploymentArchitecture",
-    "devOpsOverview",
+    "(devOpsOverView)",
     "test",
     "dev",
     "systemStructure",
-    "userGuide"
+    "(userGuide)"
   ]
 }
