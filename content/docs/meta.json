@@ -4,10 +4,10 @@
     "index",
     "workflow",
     "deploymentArchitecture",
-    { "name": "DevOps Overview", "path": "devOpsOverview" },
+    "devOpsOverview",
     "test",
     "dev",
     "systemStructure",
-    { "name": "User Guide", "path": "userGuide" }
+    "userGuide"
   ]
 }
